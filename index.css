@@ -1021,6 +1021,7 @@ h1, h2, h3, h4 {
 
 /* Scrapbook Collage for Bloopers */
 .scrapbook-collage {
+  display: block !important; /* Fix mobile WebKit absolute flex child height/distort bug */
   position: relative;
   width: 576px;
   height: 576px;
@@ -1383,6 +1384,12 @@ h1, h2, h3, h4 {
   position: relative;
   margin: 40px auto;
 }
+.desktop-only-card {
+  display: block;
+}
+.mobile-only-card {
+  display: none;
+}
 
 .card-3d {
   width: 100%;
@@ -1413,6 +1420,7 @@ h1, h2, h3, h4 {
 /* Front Page Cover */
 .front-cover {
   background: linear-gradient(135deg, #E0F2FE 0%, #E8F5E9 50%, #FAF5FF 100%); /* Fresh sky, mint, lavender gradient */
+  transform: translateZ(0.5px); /* Fix WebKit/Safari 3D text blur */
   z-index: 2;
   display: flex;
   justify-content: center;
@@ -1423,7 +1431,7 @@ h1, h2, h3, h4 {
 /* Inside Page unfolded card */
 .inside-page {
   background: linear-gradient(135deg, #FFFDF9 0%, #F8FAFC 100%); /* Clean off-white paper */
-  transform: rotateY(180deg);
+  transform: rotateY(180deg) translateZ(0.5px); /* Fix WebKit/Safari 3D text blur */
   z-index: 1;
   padding: 0;
   overflow: hidden;
@@ -1451,6 +1459,10 @@ h1, h2, h3, h4 {
   padding: 44px 36px;
   color: #2D3748;
   text-align: left;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0); /* Force GPU subpixel crisp text rendering on mobile */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 /* Styled scrollbar inside card */
@@ -1786,24 +1798,54 @@ body.theme-blessings .nav-dot.active { background: #2D3748; }
     line-height: 1.7;
   }
 
+  /* Compact polaroid photos for mobile Act 1 timeline to fit without scrolling */
+  .timeline-item .photo-polaroid {
+    max-width: 170px !important; /* Half size of desktop (384px) */
+    padding: 6px 6px 14px 6px !important;
+    margin: 5px auto 0 auto !important;
+  }
+  .timeline-item .photo-polaroid .caption {
+    font-size: 0.68rem !important; /* Match compact frame */
+    margin-top: 5px !important;
+  }
+  /* Scale down double media items inside single column layout */
+  .timeline-item .double-media {
+    flex-direction: row !important; /* Keep horizontal flex row on mobile */
+    justify-content: center !important;
+    gap: 8px !important;
+    width: 100% !important;
+  }
+  .timeline-item .double-media .mini-card {
+    max-width: 120px !important;
+    padding: 6px 6px 14px 6px !important;
+  }
+  .timeline-item .double-media .mini-card .caption {
+    font-size: 0.6rem !important;
+  }
+  .timeline-item .timeline-media {
+    margin-top: 10px !important;
+    text-align: center !important;
+    width: 100% !important;
+  }
+
   /* Responsive Scrapbook Collage under 768px */
   .scrapbook-collage {
     width: 100%;
-    height: 380px;
+    height: 310px;
   }
   .scrapbook-collage .mini-card {
-    width: 130px !important;
+    width: 110px !important;
   }
   .scrapbook-collage .mini-card.card-1 { left: 10px; top: 10px; }
-  .scrapbook-collage .mini-card.card-2 { left: 180px; top: 5px; }
-  .scrapbook-collage .mini-card.card-3 { left: 90px; top: 100px; }
-  .scrapbook-collage .mini-card.card-4 { left: 15px; top: 195px; }
-  .scrapbook-collage .mini-card.card-5 { left: 175px; top: 180px; }
+  .scrapbook-collage .mini-card.card-2 { left: 160px; top: 5px; }
+  .scrapbook-collage .mini-card.card-3 { left: 85px; top: 70px; }
+  .scrapbook-collage .mini-card.card-4 { left: 15px; top: 140px; }
+  .scrapbook-collage .mini-card.card-5 { left: 155px; top: 130px; }
 }
 
 @media (max-width: 480px) {
   html {
-    font-size: 16.5px; /* Proportional font sizing for phone viewport */
+    font-size: 16px; /* Slightly smaller base font for mobile viewports */
   }
 
   .envelope-wrapper {
@@ -1814,35 +1856,76 @@ body.theme-blessings .nav-dot.active { background: #2D3748; }
     transform: translateY(-105px) scale(1.02); /* Adjusted for taller phone envelope wrapper */
   }
   
-  .double-media {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .double-media .mini-card {
-    max-width: 100%;
-  }
   .blessing-highlight {
     font-size: 1.3rem;
   }
 
+  /* Compact polaroid photos for phone screens to fit Act 1 on screen */
+  #sec-story.section-container {
+    padding: 30px 4% 20px 4% !important;
+  }
+  #sec-story .section-desc {
+    margin-bottom: 15px !important;
+  }
+  .timeline-item {
+    gap: 12px !important;
+  }
+  .timeline-navigation {
+    margin-top: 15px !important;
+  }
+  .code-header {
+    padding: 6px 12px !important;
+  }
   .code-body {
-    padding: 12px;
-    font-size: 0.78rem;
-    line-height: 1.6;
+    padding: 10px 12px !important;
+    font-size: 0.75rem !important;
+    line-height: 1.55 !important;
+  }
+  .dictionary-title {
+    padding: 6px 12px 0 12px !important;
+    font-size: 0.85rem !important;
+  }
+
+  .timeline-item .photo-polaroid {
+    max-width: 120px !important; /* Shrunk from 170px for phone viewports */
+    padding: 4px 4px 10px 4px !important;
+    margin: 5px auto 0 auto !important;
+  }
+  .timeline-item .photo-polaroid .caption {
+    font-size: 0.58rem !important;
+    margin-top: 4px !important;
+  }
+  
+  /* Double media flex container sizing under 480px */
+  .timeline-item .double-media .mini-card {
+    max-width: 90px !important; /* Shrunk from 120px */
+    padding: 4px 4px 10px 4px !important;
+  }
+  .timeline-item .double-media .mini-card .caption {
+    font-size: 0.52rem !important;
   }
 
   /* Responsive Scrapbook Collage under 480px */
   .scrapbook-collage {
-    height: 310px;
+    width: 280px !important;
+    height: 250px !important;
+    margin: 0 auto !important;
+    position: relative;
+    display: block !important;
   }
   .scrapbook-collage .mini-card {
-    width: 105px !important;
+    width: 85px !important;
+    padding: 4px 4px 10px 4px !important;
   }
   .scrapbook-collage .mini-card.card-1 { left: 5px; top: 5px; }
-  .scrapbook-collage .mini-card.card-2 { left: 145px; top: 5px; }
-  .scrapbook-collage .mini-card.card-3 { left: 75px; top: 80px; }
-  .scrapbook-collage .mini-card.card-4 { left: 10px; top: 155px; }
-  .scrapbook-collage .mini-card.card-5 { left: 140px; top: 145px; }
+  .scrapbook-collage .mini-card.card-2 { left: 180px; top: 5px; }
+  .scrapbook-collage .mini-card.card-3 { left: 95px; top: 55px; }
+  .scrapbook-collage .mini-card.card-4 { left: 10px; top: 110px; }
+  .scrapbook-collage .mini-card.card-5 { left: 180px; top: 100px; }
+  .scrapbook-collage .mini-card .caption {
+    font-size: 0.5rem !important;
+    margin-top: 2px !important;
+  }
 }
 
 /* ==========================================================================
@@ -2044,9 +2127,30 @@ body.theme-blessings .nav-dot.active { background: #2D3748; }
     width: 300px;
     height: 410px;
   }
-  .interactive-card-3d-wrapper {
-    width: 360px;
-    height: 320px;
+  .desktop-only-card {
+    display: none !important;
+  }
+  .mobile-only-card {
+    display: block !important;
+  }
+  .interactive-card-3d-wrapper.mobile-only-card {
+    width: 320px;
+    height: 450px;
+    margin: 30px auto;
+  }
+  .timeline-navigation {
+    gap: 10px !important;
+    margin-top: 25px !important;
+  }
+  .timeline-navigation .glow-btn {
+    padding: 8px 16px !important;
+    font-size: 0.8rem !important;
+    border-radius: 20px !important;
+  }
+  #timeline-indicator {
+    font-size: 0.9rem !important;
+    padding: 6px 14px !important;
+    border-radius: 15px !important;
   }
   .blessing-card-expanded {
     padding: 20px 18px !important;
@@ -2577,4 +2681,215 @@ body.theme-blessings .nav-dot.active { background: #2D3748; }
 .card-btn-container .secondary-btn:hover {
   background: #CBD5E0;
   color: #1A202C;
+}
+
+/* ==========================================================================
+   📱 手机专属小屏适配补充优化 (MAX-WIDTH: 480PX MOBILE ONLY OVERRIDES)
+   ========================================================================== */
+@media (max-width: 480px) {
+  /* Ensure correct base size */
+  html {
+    font-size: 15.5px !important;
+  }
+
+  /* Disable tilt/rotate transforms on mobile to prevent WebKit rasterization font/image blur */
+  .timeline-item:nth-child(odd) .photo-polaroid,
+  .timeline-item:nth-child(even) .photo-polaroid,
+  .timeline-item .photo-polaroid,
+  .timeline-item .double-media .mini-card,
+  .scrapbook-collage .mini-card {
+    transform: none !important;
+    transition: none !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15) !important;
+  }
+
+  /* Increase photo sizes on mobile so they are clear and readable */
+  .timeline-item .photo-polaroid {
+    max-width: 210px !important; /* Enlarged to 210px for excellent clarity and legibility */
+    padding: 6px 6px 14px 6px !important;
+    margin: 5px auto 0 auto !important;
+  }
+  
+  /* Make polaroid captions larger, bolder and crisp on high-DPI screens */
+  .timeline-item .photo-polaroid .caption {
+    font-size: 0.85rem !important; /* Enlarged from 0.65rem */
+    font-weight: 700 !important;
+    margin-top: 6px !important;
+    color: #1e293b !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    text-rendering: optimizeLegibility !important;
+  }
+
+  .timeline-item .double-media .mini-card {
+    max-width: 135px !important; /* Enlarged to 135px so chat history screenshots are highly readable */
+    padding: 6px 6px 14px 6px !important;
+  }
+  .timeline-item .double-media .mini-card .caption {
+    font-size: 0.78rem !important; /* Enlarged from 0.58rem */
+    font-weight: 700 !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    text-rendering: optimizeLegibility !important;
+  }
+
+  /* Fix Page 6 Scrapbook Collage Bug on Mobile (prevent overlap with buttons) */
+  .timeline-item .scrapbook-collage {
+    width: 100% !important;
+    max-width: 320px !important;
+    height: 320px !important;
+    min-height: 320px !important; /* Force min-height to prevent Flexbox height collapse in WebKit */
+    margin: 10px auto !important;
+    position: relative !important;
+    display: block !important;
+  }
+  
+  .scrapbook-collage .mini-card {
+    width: 110px !important; /* Enlarged to 110px for clear scrapbook details */
+    max-width: none !important;
+    padding: 5px 5px 12px 5px !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15) !important;
+  }
+  
+  .scrapbook-collage .mini-card.card-1 { left: 5px !important; top: 5px !important; }
+  .scrapbook-collage .mini-card.card-2 { left: 205px !important; top: 5px !important; }
+  .scrapbook-collage .mini-card.card-3 { left: 105px !important; top: 75px !important; }
+  .scrapbook-collage .mini-card.card-4 { left: 10px !important; top: 140px !important; }
+  .scrapbook-collage .mini-card.card-5 { left: 200px !important; top: 130px !important; }
+  
+  .scrapbook-collage .mini-card .caption {
+    font-size: 0.7rem !important; /* Enlarged from 0.52rem */
+    font-weight: 700 !important;
+    margin-top: 3px !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    text-rendering: optimizeLegibility !important;
+  }
+
+  /* Compact spacing for section containers and other elements to help everything fit */
+  #sec-story.section-container {
+    padding: 20px 4% 15px 4% !important; /* Reduced padding to utilize empty space */
+  }
+  #sec-story .section-desc {
+    margin-bottom: 10px !important;
+  }
+  .timeline-item {
+    gap: 12px !important;
+  }
+  .timeline-navigation {
+    margin-top: 15px !important;
+    gap: 12px !important;
+  }
+  .timeline-navigation .glow-btn {
+    padding: 8px 16px !important;
+    font-size: 0.8rem !important;
+    border-radius: 20px !important;
+  }
+  #timeline-indicator {
+    font-size: 0.9rem !important;
+    padding: 6px 14px !important;
+    border-radius: 15px !important;
+  }
+
+  /* Code container optimization */
+  .code-header {
+    padding: 6px 12px !important;
+  }
+  .code-body {
+    padding: 10px 12px !important;
+    font-size: 0.74rem !important;
+    line-height: 1.5 !important;
+  }
+  .dictionary-title {
+    padding: 6px 12px 0 12px !important;
+    font-size: 0.85rem !important;
+  }
+
+  /* Act 2 Showcase Page Fitting on Mobile */
+  #sec-gallery.section-container {
+    padding: 20px 4% 15px 4% !important; /* Reduced padding */
+  }
+  #sec-gallery .section-desc {
+    margin-bottom: 10px !important;
+  }
+  #sec-gallery .gallery-tabs-container {
+    flex-direction: row !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    width: 100% !important;
+    margin-bottom: 12px !important;
+  }
+  #sec-gallery .tab-btn {
+    width: auto !important;
+    flex: 1 !important;
+    max-width: 110px !important;
+    font-size: 0.72rem !important;
+    padding: 8px 6px !important;
+    white-space: nowrap !important;
+    justify-content: center !important;
+  }
+  #sec-gallery .deck-intro-box {
+    margin-bottom: 6px !important;
+  }
+  #sec-gallery .magazine-title {
+    font-size: 1.15rem !important;
+    margin-bottom: 4px !important;
+  }
+  #sec-gallery .magazine-text {
+    font-size: 0.76rem !important;
+    line-height: 1.4 !important;
+  }
+  #sec-gallery .card-deck-wrapper {
+    width: 230px !important;
+    height: 280px !important;
+    margin: 0 auto !important;
+  }
+  #sec-gallery .deck-card {
+    padding: 8px !important;
+    border-radius: 16px !important;
+  }
+  #sec-gallery .deck-card img {
+    border-radius: 12px !important;
+  }
+  #sec-gallery .deck-card.layer-1 {
+    transform: translate3d(0, 8px, -40px) scale(0.94) rotate(-1.5deg) !important;
+  }
+  #sec-gallery .deck-card.layer-2 {
+    transform: translate3d(0, 16px, -80px) scale(0.88) rotate(2deg) !important;
+  }
+  #sec-gallery .deck-card.layer-hidden {
+    transform: translate3d(0, 24px, -120px) scale(0.8) rotate(0deg) !important;
+  }
+  #sec-gallery .deck-navigation {
+    margin-top: 10px !important;
+    gap: 12px !important;
+  }
+  #sec-gallery .deck-nav-btn {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 0.8rem !important;
+  }
+  #sec-gallery .deck-indicator {
+    font-size: 0.8rem !important;
+  }
+
+  /* Font blurriness fixes for brush calligraphy font on iOS */
+  .font-brush {
+    font-family: 'Noto Serif SC', serif !important; /* Fallback to elegant serif for high contrast readability */
+    font-weight: 700 !important;
+    letter-spacing: 0.5px !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    text-rendering: optimizeLegibility !important;
+  }
+  .vortex-title.font-brush {
+    font-size: 1.05rem !important; /* Scaled down for mobile layout */
+    line-height: 1.6 !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.12) !important;
+  }
+  #vortex-confirm-btn.font-brush {
+    font-size: 0.95rem !important;
+    font-family: 'Noto Serif SC', serif !important;
+    font-weight: 700 !important;
+  }
 }

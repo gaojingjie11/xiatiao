@@ -588,8 +588,8 @@
         
         <h2 class="blessing-highlight">“ 新的一岁，随心，自由，无忧。 ”</h2>
         
-        <!-- Interactive 3D Greeting Card Container -->
-        <div class="interactive-card-3d-wrapper">
+        <!-- Interactive 3D Greeting Card Container (Desktop Version) -->
+        <div class="interactive-card-3d-wrapper desktop-only-card">
           <div class="card-3d" id="gift-card-3d">
             <!-- Front Cover of Card (Horizontal Hand-Drawn Birthday Card) -->
             <div class="card-face front-cover">
@@ -761,6 +761,157 @@
                 <div class="card-btn-container">
                   <button id="replay-particles-btn" class="simple-btn secondary-btn">再吹蛋糕 💫</button>
                   <button id="close-card-btn" class="simple-btn">收起贺卡</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive 3D Greeting Card Container (Mobile Version - Vertical Hand-Drawn Birthday Card) -->
+        <div class="interactive-card-3d-wrapper mobile-only-card">
+          <div class="card-3d" id="gift-card-3d-mobile">
+            <!-- Front Cover of Card (Vertical Hand-Drawn Birthday Card for Mobile) -->
+            <div class="card-face front-cover">
+              <svg viewBox="0 0 450 600" width="100%" height="100%" class="birthday-cover-svg-mobile" style="display: block;">
+                <defs>
+                  <!-- SVG Filters for premium sticker floating shadow and text offset glows -->
+                  <filter id="sticker-shadow-mobile" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#0F172A" flood-opacity="0.07" />
+                  </filter>
+                  <filter id="text-shadow-mobile" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#0F172A" flood-opacity="0.09" />
+                  </filter>
+                </defs>
+
+                <!-- Sparkle stars scattered around -->
+                <!-- Sparkle 1 (top-left) -->
+                <g transform="translate(80, 150) scale(0.8)">
+                  <path d="M 0,-15 L 4,-4 L 15,0 L 4,4 L 0,15 L -4,4 L -15,0 L -4,-4 Z" fill="#FFCA28" />
+                </g>
+                <!-- Sparkle 2 (top-right) -->
+                <g transform="translate(380, 100) scale(1)">
+                  <path d="M 0,-15 L 4,-4 L 15,0 L 4,4 L 0,15 L -4,4 L -15,0 L -4,-4 Z" fill="#FFCA28" />
+                </g>
+                <!-- Sparkle 3 (middle-left) -->
+                <g transform="translate(60, 320) scale(0.6)">
+                  <path d="M 0,-15 L 4,-4 L 15,0 L 4,4 L 0,15 L -4,4 L -15,0 L -4,-4 Z" fill="#FFCA28" />
+                </g>
+                <!-- Sparkle 4 (bottom-right) -->
+                <g transform="translate(390, 420) scale(0.7)">
+                  <path d="M 0,-15 L 4,-4 L 15,0 L 4,4 L 0,15 L -4,4 L -15,0 L -4,-4 Z" fill="#FFCA28" />
+                </g>
+
+                <!-- Smiley Star Balloon on the top-right -->
+                <g filter="url(#sticker-shadow-mobile)">
+                  <!-- Balloon wavy string (Thinner, slate gray) -->
+                  <path d="M 330,192 Q 318,245 338,295 T 326,395" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" />
+                  <!-- Star balloon body (Fresh pastel coral-pink) -->
+                  <path d="M 330,90 L 348,128 L 390,131 L 358,159 L 368,200 L 330,178 L 292,200 L 302,159 L 270,131 L 312,128 Z" fill="#FFB7B2" stroke="#64748B" stroke-width="1.8" stroke-linejoin="round" />
+                  <!-- Balloon knot -->
+                  <polygon points="330,178 324,191 336,191" fill="#FFB7B2" stroke="#64748B" stroke-width="1.5" stroke-linejoin="round" />
+                  <!-- Smiley Face -->
+                  <circle cx="318" cy="144" r="2.5" fill="#475569" />
+                  <circle cx="342" cy="144" r="2.5" fill="#475569" />
+                  <path d="M 324,154 Q 330,160 336,154" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" />
+                  <ellipse cx="311" cy="150" rx="4.5" ry="3" fill="#FFC6FF" opacity="0.8" />
+                  <ellipse cx="349" cy="150" rx="4.5" ry="3" fill="#FFC6FF" opacity="0.8" />
+                </g>
+
+                <!-- Gift Box on the bottom left -->
+                <g filter="url(#sticker-shadow-mobile)">
+                  <!-- Box body (Lavender) -->
+                  <rect x="70" y="445" width="90" height="75" rx="8" fill="#D6D1FF" stroke="#64748B" stroke-width="1.8" stroke-linejoin="round" />
+                  <!-- Lid (Soft Pink) -->
+                  <rect x="64" y="428" width="102" height="20" rx="4" fill="#FFE0F5" stroke="#64748B" stroke-width="1.8" stroke-linejoin="round" />
+                  <!-- Vertical Ribbon (Mint Green) -->
+                  <rect x="110" y="448" width="10" height="72" fill="#CAFFBF" stroke="#64748B" stroke-width="1.5" />
+                  <!-- Horizontal Ribbon -->
+                  <rect x="70" y="478" width="90" height="10" fill="#CAFFBF" stroke="#64748B" stroke-width="1.5" />
+                  <!-- Bow loops -->
+                  <path d="M 115,428 C 105,406 85,406 95,428 Z" fill="#CAFFBF" stroke="#64748B" stroke-width="1.8" stroke-linejoin="round" />
+                  <path d="M 115,428 C 125,406 145,406 135,428 Z" fill="#CAFFBF" stroke="#64748B" stroke-width="1.8" stroke-linejoin="round" />
+                  <circle cx="115" cy="428" r="6" fill="#CAFFBF" stroke="#64748B" stroke-width="1.8" />
+                </g>
+
+                <!-- Flowers (Sticker style) -->
+                <!-- Flower 1 (top-left) -->
+                <g transform="translate(90, 85)" filter="url(#sticker-shadow-mobile)">
+                  <circle cx="0" cy="-12" r="10" fill="#FFADAD" stroke="#FFF" stroke-width="2" />
+                  <circle cx="11" cy="-4" r="10" fill="#FFADAD" stroke="#FFF" stroke-width="2" />
+                  <circle cx="7" cy="10" r="10" fill="#FFADAD" stroke="#FFF" stroke-width="2" />
+                  <circle cx="-7" cy="10" r="10" fill="#FFADAD" stroke="#FFF" stroke-width="2" />
+                  <circle cx="-11" cy="-4" r="10" fill="#FFADAD" stroke="#FFF" stroke-width="2" />
+                  <circle cx="0" cy="0" r="7" fill="#FDFFB6" stroke="#FFF" stroke-width="2" />
+                </g>
+                <!-- Flower 2 (bottom-right) -->
+                <g transform="translate(360, 500)" filter="url(#sticker-shadow-mobile)">
+                  <circle cx="0" cy="-12" r="10" fill="#FFC6FF" stroke="#FFF" stroke-width="2" />
+                  <circle cx="11" cy="-4" r="10" fill="#FFC6FF" stroke="#FFF" stroke-width="2" />
+                  <circle cx="7" cy="10" r="10" fill="#FFC6FF" stroke="#FFF" stroke-width="2" />
+                  <circle cx="-7" cy="10" r="10" fill="#FFC6FF" stroke="#FFF" stroke-width="2" />
+                  <circle cx="-11" cy="-4" r="10" fill="#FFC6FF" stroke="#FFF" stroke-width="2" />
+                  <circle cx="0" cy="0" r="7" fill="#FFF" stroke="#FFF" stroke-width="2" />
+                </g>
+                <!-- Flower 3 (middle-right) -->
+                <g transform="translate(380, 300)" filter="url(#sticker-shadow-mobile)">
+                  <circle cx="0" cy="-12" r="10" fill="#CAFFBF" stroke="#FFF" stroke-width="2" />
+                  <circle cx="11" cy="-4" r="10" fill="#CAFFBF" stroke="#FFF" stroke-width="2" />
+                  <circle cx="7" cy="10" r="10" fill="#CAFFBF" stroke="#FFF" stroke-width="2" />
+                  <circle cx="-7" cy="10" r="10" fill="#CAFFBF" stroke="#FFF" stroke-width="2" />
+                  <circle cx="-11" cy="-4" r="10" fill="#CAFFBF" stroke="#FFF" stroke-width="2" />
+                  <circle cx="0" cy="0" r="7" fill="#FFF" stroke="#FFF" stroke-width="2" />
+                </g>
+
+                <!-- Handwriting Text "Happy Birthday" Stacked Vertically -->
+                <g filter="url(#text-shadow-mobile)">
+                  <!-- Happy (centered slightly higher) -->
+                  <g transform="rotate(-5, 225, 230)">
+                    <text x="229" y="234" text-anchor="middle" font-family="'Pacifico', 'Outfit', cursive" font-size="70" fill="#FFC2D1" stroke="#FFC2D1" stroke-width="6" stroke-linejoin="round" font-weight="bold">Happy</text>
+                    <text x="225" y="230" text-anchor="middle" font-family="'Pacifico', 'Outfit', cursive" font-size="70" fill="#FFF" stroke="#FFF" stroke-width="8.5" stroke-linejoin="round" font-weight="bold">Happy</text>
+                    <text x="225" y="230" text-anchor="middle" font-family="'Pacifico', 'Outfit', cursive" font-size="70" fill="#FF6B8B" font-weight="bold">Happy</text>
+                  </g>
+                  
+                  <!-- Birthday (centered below) -->
+                  <g transform="rotate(2, 225, 330)">
+                    <text x="229" y="334" text-anchor="middle" font-family="'Pacifico', 'Outfit', cursive" font-size="70" fill="#BDE0FE" stroke="#BDE0FE" stroke-width="6" stroke-linejoin="round" font-weight="bold">Birthday</text>
+                    <text x="225" y="330" text-anchor="middle" font-family="'Pacifico', 'Outfit', cursive" font-size="70" fill="#FFF" stroke="#FFF" stroke-width="8.5" stroke-linejoin="round" font-weight="bold">Birthday</text>
+                    <text x="225" y="330" text-anchor="middle" font-family="'Pacifico', 'Outfit', cursive" font-size="70" fill="#38BDF8" font-weight="bold">Birthday</text>
+                  </g>
+                </g>
+
+                <!-- Wavy underlines (soft pink) -->
+                <path d="M 110,255 Q 225,270 340,250" fill="none" stroke="#FFB3C1" stroke-width="2.5" stroke-linecap="round" />
+                <path d="M 95,365 Q 225,375 355,355" fill="none" stroke="#FFB3C1" stroke-width="2.5" stroke-linecap="round" />
+
+                <!-- Bottom label indicating how to open the card -->
+                <text x="225" y="550" text-anchor="middle" font-family="'Inter', sans-serif" font-size="16" fill="#64748B" font-weight="600" letter-spacing="1.5" opacity="0.8">✨ 点击卡片开启时光寄语 ✨</text>
+              </svg>
+            </div>
+            
+            <!-- Inside Page (Revealed when card is opened - Mobile Version) -->
+            <div class="card-face inside-page">
+              <div class="blessing-card-expanded">
+                <h3 class="card-title">Hi～虾条：</h3>
+                <div class="card-text">
+                  <p>不知不觉认识你已经一年了，时间过得真快。</p>
+                  <p class="paragraph-spacing">从去年暑假偶然刷到你，到现在成为可以无话不谈的老朋友，有时候真觉得缘分很奇妙，它总在冥冥之中把同频的人凑到一起。</p>
+                  <p class="paragraph-spacing">这是我陪你过的第一个生日，老学长还没完全摸清你所有喜好，但已经牢牢记住了你不喜欢什么！给你准备了两个小礼物，希望你能喜欢：</p>
+                  <ul style="margin-top: 10px;">
+                    <li><i class="fa-solid fa-star text-gold"></i> 一个是看你 QQ 头像和王者 ID 都是小羊，猜你一定很喜欢软乎乎的小羊 🐑</li>
+                    <li><i class="fa-solid fa-star text-gold"></i> 还有一个，就是咱俩天天互相喊的「㊗️」，那就送你一个实打实的㊗️福呀 🎈</li>
+                  </ul>
+                  <p class="paragraph-spacing">新的一岁，我想祝虾条：</p>
+                  <ul style="margin-top: 10px;">
+                    <li><i class="fa-solid fa-check text-gold"></i> 写代码再也碰不到 BUG，不用再被它熬得头疼 💻🚀</li>
+                    <li><i class="fa-solid fa-check text-gold"></i> 海吃不胖，体重永远不反弹，放心大胆地吃遍所有好吃的 😋🍜</li>
+                    <li><i class="fa-solid fa-check text-gold"></i> 还有你的目标，祝你两年后稳稳上岸，得偿所愿！🎓🌟</li>
+                  </ul>
+                  <p class="paragraph-spacing font-brush text-right">虾条，生日快乐！🎂✨</p>
+                  <p class="author-sign text-right">—— 虾条的老学长</p>
+                </div>
+                <div class="card-btn-container">
+                  <button id="replay-particles-btn-mobile" class="simple-btn secondary-btn">再吹蛋糕 💫</button>
+                  <button id="close-card-btn-mobile" class="simple-btn">收起贺卡</button>
                 </div>
               </div>
             </div>

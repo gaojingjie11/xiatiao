@@ -64,6 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // 3D Gift Greeting Card
   const giftCard3D = document.getElementById('gift-card-3d');
   const closeCardBtn = document.getElementById('close-card-btn');
+  const giftCard3DMobile = document.getElementById('gift-card-3d-mobile');
+  const closeCardBtnMobile = document.getElementById('close-card-btn-mobile');
 
   // 3D Photo Vortex Transition
   const vortexStartBtn = document.getElementById('vortex-start-btn');
@@ -1179,41 +1181,58 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(animateConfetti);
   }
 
-  // Click on 3D Card
-  giftCard3D.addEventListener('click', (e) => {
-    if (isGiftOpened) return;
-    
-    // Synthesize popper sound effect
-    playConfettiPopper();
-    
-    isGiftOpened = true;
-    resizeConfettiCanvas();
-    
-    // Tilt folding book cover
-    giftCard3D.classList.add('opened');
-    
-    const rect = giftCard3D.getBoundingClientRect();
-    const x = rect.left + rect.width / 2 - confettiCanvas.getBoundingClientRect().left;
-    const y = rect.top + rect.height / 2 - confettiCanvas.getBoundingClientRect().top;
-    
-    triggerExplosion(x, y);
-    animateConfetti();
-  });
+  // Close all cards (desktop/mobile) helper
+  function closeAllCards() {
+    if (giftCard3D) giftCard3D.classList.remove('opened');
+    if (giftCard3DMobile) giftCard3DMobile.classList.remove('opened');
+  }
 
-  closeCardBtn.addEventListener('click', (e) => {
-    e.stopPropagation(); // Avoid triggering open card deck click handler on parent card container
-    giftCard3D.classList.remove('opened');
-    isGiftOpened = false;
-    confettiPieces = [];
-    playChime(600, 0.15);
-  });
+  // Click & Flip Setup for card and close buttons
+  function setupCardFlip(card, closeBtn) {
+    if (!card || !closeBtn) return;
+    
+    card.addEventListener('click', (e) => {
+      if (isGiftOpened) return;
+      
+      // Synthesize popper sound effect
+      playConfettiPopper();
+      
+      isGiftOpened = true;
+      resizeConfettiCanvas();
+      
+      // Tilt folding book cover
+      card.classList.add('opened');
+      
+      const rect = card.getBoundingClientRect();
+      const x = rect.left + rect.width / 2 - confettiCanvas.getBoundingClientRect().left;
+      const y = rect.top + rect.height / 2 - confettiCanvas.getBoundingClientRect().top;
+      
+      triggerExplosion(x, y);
+      animateConfetti();
+    });
 
-  const replayParticlesBtn = document.getElementById('replay-particles-btn');
-  if (replayParticlesBtn) {
-    replayParticlesBtn.addEventListener('click', (e) => {
+    closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation(); // Avoid triggering open card deck click handler on parent card container
+      closeAllCards();
+      isGiftOpened = false;
+      confettiPieces = [];
+      playChime(600, 0.15);
+    });
+  }
+
+  // Setup event listeners for both cards
+  setupCardFlip(giftCard3D, closeCardBtn);
+  setupCardFlip(giftCard3DMobile, closeCardBtnMobile);
+
+  // Setup replay particles for both cards
+  function setupReplayButton(btnId) {
+    const btn = document.getElementById(btnId);
+    if (!btn) return;
+    
+    btn.addEventListener('click', (e) => {
       e.stopPropagation();
       // 1. Close/reset the greeting card state
-      giftCard3D.classList.remove('opened');
+      closeAllCards();
       isGiftOpened = false;
       confettiPieces = [];
       
@@ -1249,6 +1268,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  setupReplayButton('replay-particles-btn');
+  setupReplayButton('replay-particles-btn-mobile');
 
   /* ==========================================================================
      🌀 11. 用搞怪照片的时光转场动画 (BLOOPER PHOTO TRANSITION SYSTEM)
