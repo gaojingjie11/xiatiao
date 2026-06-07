@@ -321,9 +321,7 @@ h1, h2, h3, h4 {
   align-items: center;
   gap: 3px;
 }
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-  letter-spacing: -1px;
-}
+
 
 /* Envelope Stamps & Cute Stickers */
 .envelope-stamp {
