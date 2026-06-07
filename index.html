@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>虾条生日快乐！🎂✨</title>
+  <!-- SEO & Favicon -->
+  <meta name="description" content="任夏婷（虾条）的专属生日庆祝网站，致我们一起Debug的日子与璀璨未来。">
+  
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Serif+SC:wght@300;500;700;900&family=Outfit:wght@200;400;600;800&family=Zhi+Mang+Xing&family=Caveat:wght@700&family=Pacifico&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+  <!-- Background Ambient Nebula & Particles Canvas -->
+  <canvas id="ambient-canvas"></canvas>
+
+  <!-- Background Music Player & Equalizer -->
+  <div id="music-player-container">
+    <audio id="bg-audio" loop preload="auto">
+      <source src="生日歌.mp3" type="audio/mpeg">
+      您的浏览器不支持 HTML5 播放器。
+    </audio>
+    <div class="music-widget">
+      <div class="equalizer-bars" id="music-equalizer">
+        <span class="eq-bar"></span>
+        <span class="eq-bar"></span>
+        <span class="eq-bar"></span>
+        <span class="eq-bar"></span>
+      </div>
+      <button id="music-toggle-btn" class="music-btn paused" aria-label="播放/暂停音乐">
+        <i class="fa-solid fa-compact-disc"></i>
+        <span class="music-text">音乐静音</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Splash Screen: 3D Wax-Sealed Envelope (Splash Overlay) -->
+  <div id="splash-overlay" class="active">
+    <!-- Starry micro lights behind envelope -->
+    <div class="splash-stars"></div>
+    
+    <div class="envelope-wrapper">
+      <div class="envelope" id="envelope-box">
+        <!-- Envelope Back Flap -->
+        <div class="envelope-back"></div>
+        
+        <!-- Envelope Top Flap (Flips open in 3D) -->
+        <div class="envelope-flap" id="envelope-flap-trigger"></div>
+        
+        <!-- Envelope Pocket/Inside -->
+        <div class="envelope-pocket"></div>
+        
+        <!-- Envelope Stickers -->
+        <div class="envelope-sticker sticker-1">
+          <!-- Cloud -->
+          <svg viewBox="0 0 120 80" width="50" height="35">
+            <path d="M25,55 C12,55 5,45 5,35 C5,22 18,12 32,15 C38,8 52,2 65,5 C80,8 88,20 85,32 C95,30 105,38 105,48 C105,58 95,65 80,65 Z" fill="#EBF6FF" stroke="#4A2E33" stroke-width="3" stroke-linejoin="round"/>
+            <circle cx="45" cy="40" r="2.5" fill="#4A2E33"/>
+            <circle cx="65" cy="40" r="2.5" fill="#4A2E33"/>
+            <path d="M52,48 C52,50 58,50 58,48" fill="none" stroke="#4A2E33" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="38" cy="43" r="4" fill="#FFAEC9" opacity="0.8"/>
+            <circle cx="72" cy="43" r="4" fill="#FFAEC9" opacity="0.8"/>
+          </svg>
+        </div>
+        <div class="envelope-sticker sticker-3">
+          <!-- Teddy Bear -->
+          <svg viewBox="0 0 100 100" width="42" height="42">
+            <circle cx="28" cy="35" r="14" fill="#E8C5A8" stroke="#4A2E33" stroke-width="3"/>
+            <circle cx="28" cy="35" r="7" fill="#FFC5D3"/>
+            <circle cx="72" cy="35" r="14" fill="#E8C5A8" stroke="#4A2E33" stroke-width="3"/>
+            <circle cx="72" cy="35" r="7" fill="#FFC5D3"/>
+            <circle cx="50" cy="58" r="28" fill="#E8C5A8" stroke="#4A2E33" stroke-width="3"/>
+            <ellipse cx="50" cy="65" rx="11" ry="8" fill="#FFF"/>
+            <circle cx="40" cy="53" r="3" fill="#4A2E33"/>
+            <circle cx="60" cy="53" r="3" fill="#4A2E33"/>
+            <polygon points="46,61 54,61 50,65" fill="#4A2E33"/>
+            <path d="M 50,65 C 50,67 48,68 46,68 M 50,65 C 50,67 52,68 54,68" fill="none" stroke="#4A2E33" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="32" cy="60" r="4.5" fill="#FFAEC9" opacity="0.8"/>
+            <circle cx="68" cy="60" r="4.5" fill="#FFAEC9" opacity="0.8"/>
+          </svg>
+        </div>
+        
+        <!-- Interactive Wax Seal Badge -->
+        <div class="wax-seal" id="wax-seal-btn">
+          <span class="seal-logo">
+            <svg viewBox="0 0 100 100" width="20" height="20" style="display: inline-block; vertical-align: middle; margin-right: 3px; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.25));">
+              <path d="M50,85 C50,85 15,60 15,35 C15,15 35,10 50,30 C65,10 85,15 85,35 C85,60 50,85 50,85 Z" fill="#FFDF00" stroke="#4A2E33" stroke-width="4" stroke-linejoin="round"/>
+            </svg>XT
+          </span>
+        </div>
+        
+        <!-- Letter Sheet (Slides up out of envelope) -->
+        <div class="letter-sheet" id="letter-sheet-card">
+          <!-- Hand-drawn notebook stickers inside the letter card -->
+          <div class="letter-decor decor-bottom-right">
+            <!-- Bear Sticker -->
+            <svg viewBox="0 0 100 100" width="45" height="45">
+              <circle cx="28" cy="35" r="14" fill="#E8C5A8" stroke="#4A2E33" stroke-width="2.5"/>
+              <circle cx="28" cy="35" r="7" fill="#FFC5D3"/>
+              <circle cx="72" cy="35" r="14" fill="#E8C5A8" stroke="#4A2E33" stroke-width="2.5"/>
+              <circle cx="72" cy="35" r="7" fill="#FFC5D3"/>
+              <circle cx="50" cy="58" r="28" fill="#E8C5A8" stroke="#4A2E33" stroke-width="2.5"/>
+              <ellipse cx="50" cy="64" rx="12" ry="8" fill="#FFF"/>
+              <circle cx="40" cy="53" r="2.5" fill="#4A2E33"/>
+              <circle cx="60" cy="53" r="2.5" fill="#4A2E33"/>
+              <polygon points="46,60 54,60 50,65" fill="#4A2E33"/>
+              <circle cx="28" cy="60" r="4.5" fill="#FFB07C" opacity="0.8"/>
+              <circle cx="72" cy="60" r="4.5" fill="#FFB07C" opacity="0.8"/>
+            </svg>
+          </div>
+
+          <div class="letter-decor decor-sparkle-2">
+            <!-- Hollow Star Sticker -->
+            <svg viewBox="0 0 100 100" width="30" height="30">
+              <path d="M 50,12 L 61,38 L 89,38 L 66,55 L 75,81 L 50,65 L 25,81 L 34,55 L 11,38 L 39,38 Z" fill="none" stroke="#80DEEA" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 49,15 L 59,36 L 86,36 L 64,53 L 72,77 L 50,62 L 28,77 L 36,54 L 14,36 L 41,36 Z" fill="none" stroke="#4FC3F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
+            </svg>
+          </div>
+          
+          <div class="letter-content">
+            <h1 class="letter-quote">“ 有些故事的开始，<br>总藏着不期而遇的缘分。 ”</h1>
+            <p class="letter-teaser">这是写给 虾条（任夏婷） 的一封时光密信</p>
+            <p class="letter-action-hint">打开回忆，从生疏闲聊，变成无话不谈的挚友</p>
+            <button id="enter-btn" class="glow-btn">开启回忆之旅</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Password modal overlay (Custom hand-drawn style) -->
+    <div id="password-modal" class="pwd-modal-overlay">
+      <div class="pwd-modal-card">
+        <!-- Cloud Sticker Decor -->
+        <div class="pwd-decor-cloud">
+          <svg viewBox="0 0 120 80" width="45" height="30">
+            <path d="M25,55 C12,55 5,45 5,35 C5,22 18,12 32,15 C38,8 52,2 65,5 C80,8 88,20 85,32 C95,30 105,38 105,48 C105,58 95,65 80,65 Z" fill="#EBF6FF" stroke="#4A2E33" stroke-width="3" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="pwd-modal-header">
+          <span class="pwd-modal-icon">🔐</span>
+          <h3>时光密信开启验证</h3>
+        </div>
+        <div class="pwd-modal-body">
+          <p>请输入密码以验证虾条身份：</p>
+          <input type="text" id="pwd-input" placeholder="输入4位专属密码..." maxlength="4" autocomplete="off">
+          <div class="pwd-error-msg" id="pwd-error-msg"></div>
+        </div>
+        <div class="pwd-modal-footer">
+          <button id="pwd-cancel-btn" class="pwd-btn cancel">取消</button>
+          <button id="pwd-confirm-btn" class="pwd-btn confirm">确认</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Main Application Wrapper -->
+  <main id="main-content" class="hidden">
+    
+    <!-- Floating side navigation indicator -->
+    <nav id="floating-nav">
+      <a href="#sec-story" class="nav-dot active" data-tooltip="相识&回忆"><span class="dot-num">01</span></a>
+      <a href="#sec-gallery" class="nav-dot" data-tooltip="关于她"><span class="dot-num">02</span></a>
+      <a href="#sec-blessings" class="nav-dot" data-tooltip="致未来"><span class="dot-num">03</span></a>
+    </nav>
+
+    <!-- Act 1: Story Timeline (相识&回忆) -->
+    <section id="sec-story" class="section-container theme-dark">
+      <div class="glow-orb" id="orb-story-1"></div>
+      <div class="glow-orb" id="orb-story-2"></div>
+      
+      <div class="section-wrapper">
+        <h2 class="section-title text-gold" data-subtitle="OUR STORY">相识&回忆</h2>
+        <p class="section-desc text-gold-dim">—— “从零开始的 Debug 友情”</p>
+        
+        <div class="timeline-relative-box">
+          <!-- Dynamic SVG Neon Connector Wire -->
+          <svg class="timeline-svg" id="timeline-svg-wire">
+            <path id="timeline-path-wire" fill="none" stroke-linecap="round"></path>
+          </svg>
+          
+          <div class="timeline-container">
+            
+            <!-- Line 01 -->
+            <div class="timeline-item reveal-on-scroll">
+              <div class="timeline-content glass-card">
+                <div class="timeline-number" id="node-0">1</div>
+                <!-- Cloud Sticker -->
+                <svg viewBox="0 0 100 70" width="70" height="49" class="card-sticker sticker-cloud">
+                  <path d="M 30,55 C 18,55 8,46 8,34 C 8,20 22,10 36,13 C 42,5 57,2 70,6 C 85,10 93,22 90,34 C 98,34 104,42 104,50 C 104,58 96,65 82,65 Z" fill="#EBF6FF" stroke="#4A2E33" stroke-width="3" stroke-linejoin="round"/>
+                  <circle cx="45" cy="40" r="3" fill="#4A2E33"/>
+                  <circle cx="65" cy="40" r="3" fill="#4A2E33"/>
+                  <path d="M 52,48 C 52,50 58,50 58,48" fill="none" stroke="#4A2E33" stroke-width="2" stroke-linecap="round"/>
+                  <circle cx="37" cy="43" r="5" fill="#FFC5D3" opacity="0.9"/>
+                  <circle cx="73" cy="43" r="5" fill="#FFC5D3" opacity="0.9"/>
+                </svg>
+                <div class="code-header">
+                  <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                  <span class="code-title">first_clue.py</span>
+                </div>
+                <div class="code-body line-writer"><span class="comment"># 2025.08.20</span>
+
+2025年8月一个夏天晚上，偶然抖音刷到一个小美女，和虾条田乐🚬学姐抖音闲聊居然是一个专业，还转专业！
+
+缘分就这么悄无声息地产生了。</div>
+              </div>
+              <div class="timeline-media">
+                <div class="media-container photo-polaroid" data-tilt>
+                  <img src="认识1.jpg" alt="微信线索" class="lazy-load lightbox-trigger">
+                  <div class="caption">巧合中的巧合</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Line 02 -->
+            <div class="timeline-item reveal-on-scroll reverse">
+              <div class="timeline-content glass-card">
+                <div class="timeline-number" id="node-1">2</div>
+                <div class="code-header">
+                  <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                  <span class="code-title">wechat_added.sql</span>
+                </div>
+                <div class="code-body line-writer"><span class="comment">/* 2025.09.27 - “我将预定你” */</span>
+
+微信突然弹出了添加申请。刚通过，就收到了一张 Navicat 的报错截图。
+开始了修BUG生涯
+还收到句傲娇的：“行，我将预定你。”也是第一次回忆起原来抖音早已留言过！</div>
+              </div>
+              <div class="timeline-media double-media">
+                <div class="media-container photo-polaroid mini-card" data-tilt>
+                  <img src="认识2.jpg" alt="添加微信" class="lazy-load lightbox-trigger">
+                  <div class="caption">添加好友 💬</div>
+                </div>
+                <div class="media-container photo-polaroid mini-card" data-tilt>
+                  <img src="认识3.jpg" alt="我将预定你" class="lazy-load lightbox-trigger">
+                  <div class="caption">抖音记忆</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Line 03 -->
+            <div class="timeline-item reveal-on-scroll">
+              <div class="timeline-content glass-card">
+                <div class="timeline-number" id="node-2">3</div>
+                <div class="code-header">
+                  <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                  <span class="code-title">chat_history.js</span>
+                </div>
+                <div class="code-body line-writer"><span class="comment">// 2025.10 - 至今</span>
+
+起初对话框里满是代码报错的 BUG 截图，一来一回全是学业琐事；不知不觉间，聊天内容慢慢换成三餐、日常与细碎瞬间。</div>
+              </div>
+              <div class="timeline-media double-media">
+                 <div class="media-container photo-polaroid mini-card" data-tilt>
+                   <img src="认识4.jpg" alt="抖音偶遇" class="lazy-load lightbox-trigger">
+                   <div class="caption">全是BUG！！</div>
+                 </div>
+                 <div class="media-container photo-polaroid mini-card" data-tilt>
+                   <img src="认识5.jpg" alt="大数据的偶遇" class="lazy-load lightbox-trigger">
+                   <div class="caption">生活日常🎆</div>
+                 </div>
+              </div>
+            </div>
+
+            <!-- Line 04 -->
+            <div class="timeline-item reveal-on-scroll reverse">
+              <div class="timeline-content glass-card">
+                <div class="timeline-number" id="node-3">4</div>
+                <!-- Bear Sticker -->
+                <svg viewBox="0 0 100 100" width="60" height="60" class="card-sticker sticker-bear">
+                  <circle cx="28" cy="35" r="14" fill="#E8C5A8" stroke="#4A2E33" stroke-width="3"/>
+                  <circle cx="28" cy="35" r="7" fill="#FFC5D3"/>
+                  <circle cx="72" cy="35" r="14" fill="#E8C5A8" stroke="#4A2E33" stroke-width="3"/>
+                  <circle cx="72" cy="35" r="7" fill="#FFC5D3"/>
+                  <circle cx="50" cy="58" r="28" fill="#E8C5A8" stroke="#4A2E33" stroke-width="3"/>
+                  <ellipse cx="50" cy="65" rx="11" ry="8" fill="#FFF"/>
+                  <circle cx="40" cy="53" r="3" fill="#4A2E33"/>
+                  <circle cx="60" cy="53" r="3" fill="#4A2E33"/>
+                  <polygon points="46,61 54,61 50,65" fill="#4A2E33"/>
+                  <path d="M 50,65 C 50,67 48,68 46,68 M 50,65 C 50,67 52,68 54,68" fill="none" stroke="#4A2E33" stroke-width="2" stroke-linecap="round"/>
+                  <circle cx="32" cy="60" r="4.5" fill="#FFAEC9" opacity="0.8"/>
+                  <circle cx="68" cy="60" r="4.5" fill="#FFAEC9" opacity="0.8"/>
+                </svg>
+                <div class="code-header">
+                  <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                  <span class="code-title">inheritance_legacy.cpp</span>
+                </div>
+                <div class="code-body line-writer"><span class="comment">// 2025.3.1 - 刚刚开学</span>
+
+老虾条来继承我的遗产，送她全套课本真传。
+第一次在我自己手机拍虾条，雪中的虾条，有一种沧桑的感觉</div>
+              </div>
+              <div class="timeline-media">
+                <div class="media-container photo-polaroid" data-tilt>
+                  <img src="认识6.jpg" alt="雪景分享" class="lazy-load lightbox-trigger">
+                  <div class="caption">雪中的虾条 ❄️</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Line 05 -->
+            <div class="timeline-item reveal-on-scroll">
+              <div class="timeline-content glass-card dictionary-card">
+                <div class="timeline-number" id="node-4">5</div>
+                <!-- Star Sticker -->
+                <svg viewBox="0 0 100 100" width="50" height="50" class="card-sticker sticker-star">
+                  <path d="M 50,12 L 61,38 L 89,38 L 66,55 L 75,81 L 50,65 L 25,81 L 34,55 L 11,38 L 39,38 Z" fill="none" stroke="#FFD54F" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M 51,14 L 60,37 L 87,37 L 65,54 L 73,79 L 50,63 L 27,79 L 35,54 L 13,37 L 40,37 Z" fill="none" stroke="#FFE082" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+                  <circle cx="18" cy="18" r="2.5" fill="#FFD54F"/>
+                  <circle cx="82" cy="72" r="3" fill="#FFE082"/>
+                </svg>
+                <h4 class="dictionary-title"><i class="fa-solid fa-book-bookmark"></i> 专属词典 / Lexicon</h4>
+                <div class="code-body line-writer">翻遍整年聊天记录，满屏都是随口的 “我去”“嗯嗯”、”老学长“，还有数不清的笑死、哈哈哈哈。
+当初只会发问、求助 BUG，到现在。我的日常生活多了一个随时随地倾诉散心的专属搭子。</div>
+              </div>
+              <div class="timeline-media">
+                <div class="media-container photo-polaroid wordcloud-card" data-tilt>
+                  <img src="聊天记录.jpg" alt="专属词典" class="lazy-load lightbox-trigger">
+                  <div class="caption">我们的专属词典 📊</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Line 06: Bloopers -->
+            <div class="timeline-item reveal-on-scroll reverse">
+              <div class="timeline-content glass-card">
+                <div class="timeline-number" id="node-5">6</div>
+                <!-- Blue Hollow Star Sticker -->
+                <svg viewBox="0 0 100 100" width="50" height="50" class="card-sticker sticker-hollow-star">
+                  <path d="M 50,12 L 61,38 L 89,38 L 66,55 L 75,81 L 50,65 L 25,81 L 34,55 L 11,38 L 39,38 Z" fill="none" stroke="#80DEEA" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M 49,15 L 59,36 L 86,36 L 64,53 L 72,77 L 50,62 L 28,77 L 36,54 L 14,36 L 41,36 Z" fill="none" stroke="#4FC3F7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
+                  <circle cx="25" cy="20" r="2" fill="#80DEEA"/>
+                  <circle cx="75" cy="75" r="2.5" fill="#80DEEA"/>
+                </svg>
+                <div class="code-header">
+                  <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                  <span class="code-title">blooper_moments.cpp</span>
+                </div>
+                <div class="code-body line-writer"><span class="comment">// 那些私藏的抽象糗照 🤪</span>
+
+在这放点虾条的抽象照片。想当萌妹的虾条纯搞笑来的。
+搞怪抽象的表情，还有年度最美刘海，果然齐刘海不是谁都能驾驭。
+风中凌乱的虾条 还有堪比光头强骑鬼火的虾条。</div>
+              </div>
+              <div class="timeline-media scrapbook-collage">
+                <div class="media-container photo-polaroid mini-card card-1" data-tilt>
+                  <img src="好玩1.jpg" alt="搞笑日常1" class="lazy-load lightbox-trigger">
+                  <div class="caption">迷惑行为 🤪</div>
+                </div>
+                <div class="media-container photo-polaroid mini-card card-2" data-tilt>
+                  <img src="好玩2.jpg" alt="齐齐刘海" class="lazy-load lightbox-trigger">
+                  <div class="caption">齐齐刘海 💇‍♀️</div>
+                </div>
+                <div class="media-container photo-polaroid mini-card card-3" data-tilt>
+                  <img src="好玩3.jpg" alt="虾条迷惑" class="lazy-load lightbox-trigger">
+                  <div class="caption">虾条迷惑 ❓</div>
+                </div>
+                <div class="media-container photo-polaroid mini-card card-4" data-tilt>
+                  <img src="好玩4.jpg" alt="风中凌乱" class="lazy-load lightbox-trigger">
+                  <div class="caption">风中凌乱 🌀</div>
+                </div>
+                <div class="media-container photo-polaroid mini-card card-5" data-tilt>
+                  <img src="好玩5.jpg" alt="光头婷骑鬼火" class="lazy-load lightbox-trigger">
+                  <div class="caption">光头婷骑鬼火 🏍️</div>
+                </div>
+              </div>
+            </div>
+          </div> <!-- Timeline container -->
+          
+          <!-- Act 1 Timeline Page Navigation Controls -->
+          <div class="timeline-navigation">
+            <button id="timeline-prev-btn" class="glow-btn"><i class="fa-solid fa-chevron-left"></i> 上一页</button>
+            <span id="timeline-indicator">1 / 6</span>
+            <button id="timeline-next-btn" class="glow-btn">下一页 <i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+          
+        </div>
+      </div> <!-- Section wrapper -->
+    </section>
+
+    <!-- Act 2: Showcase (关于她) -->
+    <section id="sec-gallery" class="section-container">
+      <div class="glow-orb" id="orb-gallery-1"></div>
+      <div class="glow-orb" id="orb-gallery-2"></div>
+      
+      <div class="section-wrapper">
+        <h2 class="section-title" data-subtitle="ABOUT HER">虾条Show</h2>
+        <p class="section-desc">—— “多面虾条的独家印记”</p>
+        
+        <!-- Gallery Tabs Navigation -->
+        <div class="gallery-tabs-container">
+          <button class="tab-btn active" data-tab="tab-business" id="tab-btn-business">
+            💄 美妆的虾条
+          </button>
+          <button class="tab-btn" data-tab="tab-travel" id="tab-btn-travel">
+            🌸 春天的虾条
+          </button>
+          <button class="tab-btn" data-tab="tab-weird" id="tab-btn-weird">
+            🧸 可爱的虾条
+          </button>
+        </div>
+
+        <!-- 3D Card Stack Carousel Panels -->
+        <div class="gallery-panels">
+          
+          <!-- Tab 1: Business (美妆的虾条 - 3D Card Deck) -->
+          <div class="tab-panel active" id="tab-business">
+            <div class="deck-intro-box">
+              <h3 class="magazine-title">各种妆造的虾条</h3>
+              <p class="magazine-text">夯爆了汉服，真的夯爆了，简直虞姬美人！白色穿搭温柔。水手服更是萌爆了。</p>
+            </div>
+            
+            <div class="deck-showcase">
+              <div class="card-deck-wrapper">
+                <div class="card-deck" id="deck-business-cards">
+                  
+                  <div class="deck-card active-card" data-index="0">
+                    <img src="1780456752868.jpg" alt="粉色汉服写真" class="lazy-load lightbox-trigger">
+                  </div>
+
+                  <div class="deck-card" data-index="1">
+                    <img src="mmexport1780456681921.jpg" alt="一字肩自拍" class="lazy-load lightbox-trigger">
+                  </div>
+
+                  <div class="deck-card" data-index="2">
+                    <img src="1780456711637.jpg" alt="水手服双马尾" class="lazy-load lightbox-trigger">
+                  </div>
+
+                </div>
+              </div>
+              <div class="deck-navigation">
+                <button class="deck-nav-btn prev" data-deck="business" aria-label="上一张"><i class="fa-solid fa-arrow-left-long"></i></button>
+                <span class="deck-indicator" id="indicator-business">1 / 3</span>
+                <button class="deck-nav-btn next" data-deck="business" aria-label="下一张"><i class="fa-solid fa-arrow-right-long"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 2: Travel (春天的虾条 - 3D Card Deck) -->
+          <div class="tab-panel" id="tab-travel">
+            <div class="deck-intro-box">
+              <h3 class="polaroid-title">春景与青春虾条</h3>
+              <p class="polaroid-text">暖风踏青，花开正好，虾条与春景美入画，</p>
+            </div>
+            
+            <div class="deck-showcase">
+              <div class="card-deck-wrapper">
+                <div class="card-deck" id="deck-travel-cards">
+                  
+                  <div class="deck-card active-card" data-index="0">
+                    <img src="mmexport1780456481862.jpg" alt="春樱草坪" class="lazy-load lightbox-trigger">
+                  </div>
+
+                  <div class="deck-card" data-index="1">
+                    <img src="mmexport1780456690490.jpg" alt="靠树写真" class="lazy-load lightbox-trigger">
+                  </div>
+
+                  <div class="deck-card" data-index="2">
+                    <img src="1780456666286.jpg" alt="溪水木桥" class="lazy-load lightbox-trigger">
+                  </div>
+
+                </div>
+              </div>
+              <div class="deck-navigation">
+                <button class="deck-nav-btn prev" data-deck="travel" aria-label="上一张"><i class="fa-solid fa-arrow-left-long"></i></button>
+                <span class="deck-indicator" id="indicator-travel">1 / 3</span>
+                <button class="deck-nav-btn next" data-deck="travel" aria-label="下一张"><i class="fa-solid fa-arrow-right-long"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 3: Weird (可爱的虾条 - 3D Card Deck) -->
+          <div class="tab-panel" id="tab-weird">
+            <div class="deck-intro-box">
+              <h3 class="candy-title">如此萌物虾条</h3>
+              <p class="candy-text">不多说了，这百变的虾条 又甜又萌 ，看图便知，</p>
+            </div>
+            
+            <div class="deck-showcase">
+              <div class="card-deck-wrapper">
+                <div class="card-deck" id="deck-weird-cards">
+                  
+                  <div class="deck-card active-card" data-index="0">
+                    <img src="1780456612340.jpg" alt="噘嘴自拍" class="lazy-load lightbox-trigger">
+                  </div>
+
+                  <div class="deck-card" data-index="1">
+                    <img src="1780456627042.jpg" alt="猫咪胡须自拍" class="lazy-load lightbox-trigger">
+                  </div>
+
+                  <div class="deck-card" data-index="2">
+                    <img src="1780456647369.jpg" alt="眨眼剪刀手" class="lazy-load lightbox-trigger">
+                  </div>
+
+                  <div class="deck-card" data-index="3">
+                    <img src="mmexport1780456488315.jpg" alt="表情包遮脸" class="lazy-load lightbox-trigger">
+                  </div>
+
+                  <div class="deck-card" data-index="4">
+                    <img src="1780456618840.jpg" alt="KTV抱着红牛" class="lazy-load lightbox-trigger">
+                  </div>
+
+                </div>
+              </div>
+              <div class="deck-navigation">
+                <button class="deck-nav-btn prev" data-deck="weird" aria-label="上一张"><i class="fa-solid fa-arrow-left-long"></i></button>
+                <span class="deck-indicator" id="indicator-weird">1 / 5</span>
+                <button class="deck-nav-btn next" data-deck="weird" aria-label="下一张"><i class="fa-solid fa-arrow-right-long"></i></button>
+              </div>
+            </div>
+          </div>
+
+        </div> <!-- Panels wrapper -->
+        
+        <!-- Time Vortex Navigation Trigger -->
+        <div class="vortex-trigger-container reveal-on-scroll">
+          <button id="vortex-start-btn" class="vortex-btn font-brush">
+            封存相册 · 折叠时光 <i class="fa-solid fa-wand-magic-sparkles"></i>
+          </button>
+        </div>
+      </div> <!-- Section wrapper -->
+    </section>
+
+    <!-- Act 3: Blessings (致未来) -->
+    <section id="sec-blessings" class="section-container">
+      <!-- Confetti canvas overlay -->
+      <canvas id="confetti-canvas"></canvas>
+
+      <!-- act 3 particle countdown stage overlay -->
+      <div id="cake-particle-stage" class="cake-stage-overlay hidden">
+        <canvas id="cake-particle-canvas"></canvas>
+        <div class="cake-text-overlay">
+          <div class="cake-header">
+            <h1 class="cake-title font-brush">Happy Birthday</h1>
+            <p class="cake-subtitle">BEST WISHES FOR YOU</p>
+          </div>
+          <div class="cake-prompt-container">
+            <p class="cake-prompt-text pulse">💡 点击蜡烛、敲击空格或对着麦克风吹气，点亮生日蛋糕</p>
+            <p class="cake-prompt-sub">(如果麦克风不灵可以尝试敲空格键，手机长按屏幕)</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="section-wrapper blessings-content">
+        <!-- Cute hand-drawn animated cake icon container -->
+        <div class="cake-pulse-container">
+          <svg viewBox="0 0 100 100" width="140" height="140" class="cake-pulse-svg">
+            <!-- Stand plate -->
+            <path d="M 12,78 C 30,84 70,84 88,78 C 88,74 70,72 50,72 C 30,72 12,74 12,78 Z" fill="#FFF8E7" stroke="#4A2E33" stroke-width="3.5" stroke-linejoin="round" />
+            
+            <!-- Bottom layer of cake -->
+            <path d="M 18,52 L 18,74 C 30,80 70,80 82,74 L 82,52 C 70,57 30,57 18,52 Z" fill="#FFD2E1" stroke="#4A2E33" stroke-width="3.5" stroke-linejoin="round" />
+            
+            <!-- Cream decorations / drips -->
+            <path d="M 18,52 C 25,57 32,56 36,52 C 40,48 48,58 54,52 C 60,46 68,56 74,51 C 78,48 80,54 82,52 L 82,46 C 70,51 30,51 18,46 Z" fill="#FFF" stroke="#4A2E33" stroke-width="3" stroke-linejoin="round" />
+            
+            <!-- Top Layer of cake -->
+            <path d="M 26,34 L 26,48 C 35,53 65,53 74,48 L 74,34 C 65,38 35,38 26,34 Z" fill="#FFE082" stroke="#4A2E33" stroke-width="3.5" stroke-linejoin="round" />
+            
+            <!-- Drips on top layer -->
+            <path d="M 26,34 C 32,38 38,36 42,33 C 46,30 52,39 58,34 C 64,29 68,36 74,34 L 74,31 C 65,34 35,34 26,31 Z" fill="#FFF" stroke="#4A2E33" stroke-width="3" stroke-linejoin="round" />
+            
+            <!-- Candles -->
+            <!-- Middle Candle -->
+            <rect x="47" y="16" width="6" height="18" rx="2" fill="#E1BEE7" stroke="#4A2E33" stroke-width="2.5" />
+            <path class="candle-flame" d="M 50,4 C 47,8 48,15 50,15 C 52,15 53,8 50,4 Z" fill="#FF6F00" stroke="#4A2E33" stroke-width="1.5" />
+            <!-- Left Candle -->
+            <rect x="35" y="19" width="6" height="17" rx="2" fill="#B2DFDB" stroke="#4A2E33" stroke-width="2.5" transform="rotate(-6, 38, 28)" />
+            <path class="candle-flame" d="M 36,8 C 33,12 34,18 36,18 C 38,18 39,12 36,8 Z" fill="#FFD54F" stroke="#4A2E33" stroke-width="1.5" transform="rotate(-6, 38, 28)" />
+            <!-- Right Candle -->
+            <rect x="59" y="19" width="6" height="17" rx="2" fill="#FFCDD2" stroke="#4A2E33" stroke-width="2.5" transform="rotate(6, 62, 28)" />
+            <path class="candle-flame" d="M 64,8 C 61,12 62,18 64,18 C 66,18 67,12 64,8 Z" fill="#FF8A65" stroke="#4A2E33" stroke-width="1.5" transform="rotate(6, 62, 28)" />
+            
+            <!-- Cherry on top -->
+            <circle cx="50" cy="40" r="5" fill="#E53935" stroke="#4A2E33" stroke-width="2" />
+            <path d="M 50,35 Q 52,28 58,26" fill="none" stroke="#4A2E33" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </div>
+        
+        <h2 class="blessing-highlight">“ 新的一岁，随心，自由，无忧。 ”</h2>
+        
+        <!-- Interactive 3D Greeting Card Container -->
+        <div class="interactive-card-3d-wrapper">
+          <div class="card-3d" id="gift-card-3d">
+            <!-- Front Cover of Card (Horizontal Hand-Drawn Birthday Card) -->
+            <div class="card-face front-cover">
+              <svg viewBox="0 0 680 480" width="100%" height="100%" class="birthday-cover-svg" style="display: block;">
+                <defs>
+                  <!-- SVG Filters for premium sticker floating shadow and text offset glows -->
+                  <filter id="sticker-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#0F172A" flood-opacity="0.07" />
+                  </filter>
+                  <filter id="text-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#0F172A" flood-opacity="0.09" />
+                  </filter>
+                </defs>
+
+                <!-- Sparkle stars scattered around (Pure gold stars without outline) -->
+                <!-- Sparkle 1 (top-left) -->
+                <g transform="translate(200, 130) scale(0.8)">
+                  <path d="M 0,-15 L 4,-4 L 15,0 L 4,4 L 0,15 L -4,4 L -15,0 L -4,-4 Z" fill="#FFCA28" />
+                </g>
+                <!-- Sparkle 2 (top-right) -->
+                <g transform="translate(470, 100) scale(1)">
+                  <path d="M 0,-15 L 4,-4 L 15,0 L 4,4 L 0,15 L -4,4 L -15,0 L -4,-4 Z" fill="#FFCA28" />
+                </g>
+                <!-- Sparkle 3 (bottom-left) -->
+                <g transform="translate(230, 370) scale(0.9)">
+                  <path d="M 0,-15 L 4,-4 L 15,0 L 4,4 L 0,15 L -4,4 L -15,0 L -4,-4 Z" fill="#FFCA28" />
+                </g>
+                <!-- Sparkle 4 (bottom-right) -->
+                <g transform="translate(480, 380) scale(0.7)">
+                  <path d="M 0,-15 L 4,-4 L 15,0 L 4,4 L 0,15 L -4,4 L -15,0 L -4,-4 Z" fill="#FFCA28" />
+                </g>
+                <!-- Sparkle 5 (middle-left) -->
+                <g transform="translate(60, 210) scale(0.6)">
+                  <path d="M 0,-15 L 4,-4 L 15,0 L 4,4 L 0,15 L -4,4 L -15,0 L -4,-4 Z" fill="#FFCA28" />
+                </g>
+
+                <!-- Smiley Star Balloon on the right with soft shadow -->
+                <g filter="url(#sticker-shadow)">
+                  <!-- Balloon wavy string (Thinner, slate gray) -->
+                  <path d="M 550,192 Q 538,245 558,295 T 546,395" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" />
+                  <!-- Star balloon body (Fresh pastel coral-pink with thin outline) -->
+                  <path d="M 550,90 L 568,128 L 610,131 L 578,159 L 588,200 L 550,178 L 512,200 L 522,159 L 490,131 L 532,128 Z" fill="#FFB7B2" stroke="#64748B" stroke-width="1.8" stroke-linejoin="round" />
+                  <!-- Balloon knot -->
+                  <polygon points="550,178 544,191 556,191" fill="#FFB7B2" stroke="#64748B" stroke-width="1.5" stroke-linejoin="round" />
+                  <!-- Smiley Face -->
+                  <circle cx="538" cy="144" r="2.5" fill="#475569" />
+                  <circle cx="562" cy="144" r="2.5" fill="#475569" />
+                  <path d="M 544,154 Q 550,160 556,154" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" />
+                  <ellipse cx="531" cy="150" rx="4.5" ry="3" fill="#FFC6FF" opacity="0.8" />
+                  <ellipse cx="569" cy="150" rx="4.5" ry="3" fill="#FFC6FF" opacity="0.8" />
+                </g>
+
+                <!-- Gift Box on the bottom left with soft shadow -->
+                <g filter="url(#sticker-shadow)">
+                  <!-- Box body (Lavender) -->
+                  <rect x="70" y="325" width="90" height="75" rx="8" fill="#D6D1FF" stroke="#64748B" stroke-width="1.8" stroke-linejoin="round" />
+                  <!-- Lid (Soft Pink) -->
+                  <rect x="64" y="308" width="102" height="20" rx="4" fill="#FFE0F5" stroke="#64748B" stroke-width="1.8" stroke-linejoin="round" />
+                  <!-- Vertical Ribbon (Mint Green) -->
+                  <rect x="110" y="328" width="10" height="72" fill="#CAFFBF" stroke="#64748B" stroke-width="1.5" />
+                  <!-- Horizontal Ribbon -->
+                  <rect x="70" y="358" width="90" height="10" fill="#CAFFBF" stroke="#64748B" stroke-width="1.5" />
+                  <!-- Bow loops -->
+                  <path d="M 115,308 C 105,286 85,286 95,308 Z" fill="#CAFFBF" stroke="#64748B" stroke-width="1.8" stroke-linejoin="round" />
+                  <path d="M 115,308 C 125,286 145,286 135,308 Z" fill="#CAFFBF" stroke="#64748B" stroke-width="1.8" stroke-linejoin="round" />
+                  <circle cx="115" cy="308" r="6" fill="#CAFFBF" stroke="#64748B" stroke-width="1.8" />
+                </g>
+
+                <!-- Flowers (Sticker style with soft white borders & drop shadow) -->
+                <!-- Flower 1 (top-left) -->
+                <g transform="translate(100, 85)" filter="url(#sticker-shadow)">
+                  <circle cx="0" cy="-12" r="10" fill="#FFADAD" stroke="#FFF" stroke-width="2" />
+                  <circle cx="11" cy="-4" r="10" fill="#FFADAD" stroke="#FFF" stroke-width="2" />
+                  <circle cx="7" cy="10" r="10" fill="#FFADAD" stroke="#FFF" stroke-width="2" />
+                  <circle cx="-7" cy="10" r="10" fill="#FFADAD" stroke="#FFF" stroke-width="2" />
+                  <circle cx="-11" cy="-4" r="10" fill="#FFADAD" stroke="#FFF" stroke-width="2" />
+                  <circle cx="0" cy="0" r="7" fill="#FDFFB6" stroke="#FFF" stroke-width="2" />
+                </g>
+                <!-- Flower 2 (top-middle) -->
+                <g transform="translate(340, 65)" filter="url(#sticker-shadow)">
+                  <circle cx="0" cy="-12" r="10" fill="#FDFFB6" stroke="#FFF" stroke-width="2" />
+                  <circle cx="11" cy="-4" r="10" fill="#FDFFB6" stroke="#FFF" stroke-width="2" />
+                  <circle cx="7" cy="10" r="10" fill="#FDFFB6" stroke="#FFF" stroke-width="2" />
+                  <circle cx="-7" cy="10" r="10" fill="#FDFFB6" stroke="#FFF" stroke-width="2" />
+                  <circle cx="-11" cy="-4" r="10" fill="#FDFFB6" stroke="#FFF" stroke-width="2" />
+                  <circle cx="0" cy="0" r="7" fill="#FFE3A8" stroke="#FFF" stroke-width="2" />
+                </g>
+                <!-- Flower 3 (top-right) -->
+                <g transform="translate(580, 80)" filter="url(#sticker-shadow)">
+                  <circle cx="0" cy="-12" r="10" fill="#CAFFBF" stroke="#FFF" stroke-width="2" />
+                  <circle cx="11" cy="-4" r="10" fill="#CAFFBF" stroke="#FFF" stroke-width="2" />
+                  <circle cx="7" cy="10" r="10" fill="#CAFFBF" stroke="#FFF" stroke-width="2" />
+                  <circle cx="-7" cy="10" r="10" fill="#CAFFBF" stroke="#FFF" stroke-width="2" />
+                  <circle cx="-11" cy="-4" r="10" fill="#CAFFBF" stroke="#FFF" stroke-width="2" />
+                  <circle cx="0" cy="0" r="7" fill="#FFF" stroke="#FFF" stroke-width="2" />
+                </g>
+                <!-- Flower 4 (bottom-middle) -->
+                <g transform="translate(320, 415)" filter="url(#sticker-shadow)">
+                  <circle cx="0" cy="-12" r="10" fill="#BDE0FE" stroke="#FFF" stroke-width="2" />
+                  <circle cx="11" cy="-4" r="10" fill="#BDE0FE" stroke="#FFF" stroke-width="2" />
+                  <circle cx="7" cy="10" r="10" fill="#BDE0FE" stroke="#FFF" stroke-width="2" />
+                  <circle cx="-7" cy="10" r="10" fill="#BDE0FE" stroke="#FFF" stroke-width="2" />
+                  <circle cx="-11" cy="-4" r="10" fill="#BDE0FE" stroke="#FFF" stroke-width="2" />
+                  <circle cx="0" cy="0" r="7" fill="#FDFFB6" stroke="#FFF" stroke-width="2" />
+                </g>
+                <!-- Flower 5 (bottom-right) -->
+                <g transform="translate(580, 395)" filter="url(#sticker-shadow)">
+                  <circle cx="0" cy="-12" r="10" fill="#FFC6FF" stroke="#FFF" stroke-width="2" />
+                  <circle cx="11" cy="-4" r="10" fill="#FFC6FF" stroke="#FFF" stroke-width="2" />
+                  <circle cx="7" cy="10" r="10" fill="#FFC6FF" stroke="#FFF" stroke-width="2" />
+                  <circle cx="-7" cy="10" r="10" fill="#FFC6FF" stroke="#FFF" stroke-width="2" />
+                  <circle cx="-11" cy="-4" r="10" fill="#FFC6FF" stroke="#FFF" stroke-width="2" />
+                  <circle cx="0" cy="0" r="7" fill="#FFF" stroke="#FFF" stroke-width="2" />
+                </g>
+
+                <!-- Handwriting Text "Happy Birthday" with elegant white borders & soft dropshadow -->
+                <g filter="url(#text-shadow)">
+                  <!-- Happy -->
+                  <g transform="rotate(-5, 305, 175)">
+                    <!-- Shadow layer (Soft Pink Outline Offset) -->
+                    <text x="307" y="177" text-anchor="middle" font-family="'Pacifico', 'Outfit', cursive" font-size="70" fill="#FFC2D1" stroke="#FFC2D1" stroke-width="6" stroke-linejoin="round" font-weight="bold">Happy</text>
+                    <!-- White sticker outline background -->
+                    <text x="303" y="173" text-anchor="middle" font-family="'Pacifico', 'Outfit', cursive" font-size="70" fill="#FFF" stroke="#FFF" stroke-width="8.5" stroke-linejoin="round" font-weight="bold">Happy</text>
+                    <!-- Foreground layer (Fresh coral pink) -->
+                    <text x="303" y="173" text-anchor="middle" font-family="'Pacifico', 'Outfit', cursive" font-size="70" fill="#FF6B8B" font-weight="bold">Happy</text>
+                  </g>
+                  
+                  <!-- Birthday -->
+                  <g transform="rotate(2, 345, 275)">
+                    <!-- Shadow layer (Soft Blue Outline Offset) -->
+                    <text x="348" y="278" text-anchor="middle" font-family="'Pacifico', 'Outfit', cursive" font-size="70" fill="#BDE0FE" stroke="#BDE0FE" stroke-width="6" stroke-linejoin="round" font-weight="bold">Birthday</text>
+                    <!-- White sticker outline background -->
+                    <text x="344" y="274" text-anchor="middle" font-family="'Pacifico', 'Outfit', cursive" font-size="70" fill="#FFF" stroke="#FFF" stroke-width="8.5" stroke-linejoin="round" font-weight="bold">Birthday</text>
+                    <!-- Foreground layer (Fresh sky blue) -->
+                    <text x="344" y="274" text-anchor="middle" font-family="'Pacifico', 'Outfit', cursive" font-size="70" fill="#38BDF8" font-weight="bold">Birthday</text>
+                  </g>
+                </g>
+
+                <!-- Wavy underlines under text (Clean soft-pink ribbons instead of dark lines) -->
+                <path d="M 180,200 Q 240,215 315,195 T 440,195" fill="none" stroke="#FFB3C1" stroke-width="2.5" stroke-linecap="round" />
+                <path d="M 195,305 Q 345,315 495,295 M 205,315 Q 345,325 480,305" fill="none" stroke="#FFB3C1" stroke-width="2.5" stroke-linecap="round" />
+
+                <!-- Bottom label indicating how to open the card -->
+                <text x="340" y="422" text-anchor="middle" font-family="'Inter', sans-serif" font-size="15" fill="#64748B" font-weight="600" letter-spacing="1.5" opacity="0.8">✨ 点击卡片开启时光寄语 ✨</text>
+              </svg>
+            </div>
+            
+            <!-- Inside Page (Revealed when card is opened) -->
+            <div class="card-face inside-page">
+              <div class="blessing-card-expanded">
+                <h3 class="card-title">Hi～虾条：</h3>
+                <div class="card-text">
+                  <p>不知不觉认识你已经一年了，时间过得真快。</p>
+                  <p class="paragraph-spacing">从去年暑假偶然刷到你，到现在成为可以无话不谈的老朋友，有时候真觉得缘分很奇妙，它总在冥冥之中把同频的人凑到一起。</p>
+                  <p class="paragraph-spacing">这是我陪你过的第一个生日，老学长还没完全摸清你所有喜好，但已经牢牢记住了你不喜欢什么！给你准备了两个小礼物，希望你能喜欢：</p>
+                  <ul style="margin-top: 10px;">
+                    <li><i class="fa-solid fa-star text-gold"></i> 一个是看你 QQ 头像和王者 ID 都是小羊，猜你一定很喜欢软乎乎的小羊 🐑</li>
+                    <li><i class="fa-solid fa-star text-gold"></i> 还有一个，就是咱俩天天互相喊的「㊗️」，那就送你一个实打实的㊗️福呀 🎈</li>
+                  </ul>
+                  <p class="paragraph-spacing">新的一岁，我想祝虾条：</p>
+                  <ul style="margin-top: 10px;">
+                    <li><i class="fa-solid fa-check text-gold"></i> 写代码再也碰不到 BUG，不用再被它熬得头疼 💻🚀</li>
+                    <li><i class="fa-solid fa-check text-gold"></i> 海吃不胖，体重永远不反弹，放心大胆地吃遍所有好吃的 😋🍜</li>
+                    <li><i class="fa-solid fa-check text-gold"></i> 还有你的目标，祝你两年后稳稳上岸，得偿所愿！🎓🌟</li>
+                  </ul>
+                  <p class="paragraph-spacing font-brush text-right">虾条，生日快乐！🎂✨</p>
+                  <p class="author-sign text-right">—— 虾条的老学长</p>
+                </div>
+                <div class="card-btn-container">
+                  <button id="replay-particles-btn" class="simple-btn secondary-btn">再吹蛋糕 💫</button>
+                  <button id="close-card-btn" class="simple-btn">收起贺卡</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Image Lightbox Overlay -->
+  <div id="lightbox-overlay" class="hidden">
+    <button class="lightbox-close" aria-label="关闭预览">&times;</button>
+    <img id="lightbox-img" src="" alt="大图预览">
+    <div id="lightbox-caption"></div>
+  </div>
+
+  <!-- Cinematic 3D Photo Vortex Transition Overlay -->
+  <div id="transition-vortex" class="hidden" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1500; background: radial-gradient(circle at center, #F0FAF6 0%, #BAE0CB 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden; perspective: 1200px; transition: opacity 1s, visibility 1s;">
+    <div class="vortex-portal">
+      <div class="vortex-ring" id="vortex-ring"></div>
+      <div class="vortex-core"></div>
+    </div>
+    <div class="vortex-title font-brush" style="bottom: 22%;">正在提取时光片段...</div>
+    <button id="vortex-confirm-btn" class="glow-btn font-brush" style="position: absolute; bottom: 8%; z-index: 2500; display: none;">开启时光祝福 🌟</button>
+  </div>
+
+  <!-- Chef Popup Transition Overlay -->
+  <div id="chef-popup-container" class="hidden">
+    <img id="chef-popup-img" src="" alt="Chef Transition Overlay">
+  </div>
+
+  <!-- Blooper Photo Transition Overlay -->
+  <div id="blooper-transition-overlay" class="hidden" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 3000; background: radial-gradient(circle, #E5FBF0 0%, #A4E4BF 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden; transition: opacity 0.5s ease, visibility 0.5s ease;">
+    <div class="blooper-transition-container">
+      <img class="blooper-trans-img img-1" src="好玩1.jpg" alt="转场图 1">
+      <img class="blooper-trans-img img-2" src="好玩2.jpg" alt="转场图 2">
+      <img class="blooper-trans-img img-3" src="好玩3.jpg" alt="转场图 3">
+      <img class="blooper-trans-img img-4" src="好玩4.jpg" alt="转场图 4">
+      <img class="blooper-trans-img img-5" src="好玩5.jpg" alt="转场图 5">
+    </div>
+    <div class="blooper-transition-text font-brush">时光传送中... 💖</div>
+  </div>
+
+  <!-- Custom Scripts -->
+  <script src="index.js"></script>
+</body>
+</html>
