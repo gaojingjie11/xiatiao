@@ -2913,6 +2913,20 @@ body.theme-blessings .nav-dot.active { background: #2D3748; }
     margin-top: 1.2rem !important;
     gap: 1rem !important;
   }
+  .deck-intro-box {
+    margin-bottom: 1.2rem !important;
+  }
+  .magazine-title, .polaroid-title, .candy-title {
+    font-size: 1.8rem !important;
+    margin-bottom: 8px !important;
+  }
+  .vortex-trigger-container {
+    margin-top: 2rem !important;
+  }
+  .vortex-btn {
+    padding: 12px 30px !important;
+    font-size: 1.3rem !important;
+  }
 }
 
 @media (min-width: 1025px) and (max-height: 850px) {
@@ -2940,6 +2954,20 @@ body.theme-blessings .nav-dot.active { background: #2D3748; }
     width: 18.2rem !important; /* Scale width down to maintain portrait aspect ratio */
     height: 25rem !important; /* Scales down card deck height */
   }
+  .deck-intro-box {
+    margin-bottom: 0.9rem !important;
+  }
+  .magazine-title, .polaroid-title, .candy-title {
+    font-size: 1.5rem !important;
+    margin-bottom: 6px !important;
+  }
+  .vortex-trigger-container {
+    margin-top: 1.5rem !important;
+  }
+  .vortex-btn {
+    padding: 10px 24px !important;
+    font-size: 1.15rem !important;
+  }
 }
 
 @media (min-width: 1025px) and (max-height: 750px) {
@@ -2966,6 +2994,20 @@ body.theme-blessings .nav-dot.active { background: #2D3748; }
   #sec-gallery .card-deck-wrapper {
     width: 16.8rem !important; /* Scale width down proportionally */
     height: 23rem !important; /* Scales card deck down further */
+  }
+  .deck-intro-box {
+    margin-bottom: 0.6rem !important;
+  }
+  .magazine-title, .polaroid-title, .candy-title {
+    font-size: 1.3rem !important;
+    margin-bottom: 4px !important;
+  }
+  .vortex-trigger-container {
+    margin-top: 1rem !important;
+  }
+  .vortex-btn {
+    padding: 8px 20px !important;
+    font-size: 1rem !important;
   }
 }
 
