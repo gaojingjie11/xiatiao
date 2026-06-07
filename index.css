@@ -2937,6 +2937,7 @@ body.theme-blessings .nav-dot.active { background: #2D3748; }
     margin-top: 1.5rem !important;
   }
   #sec-gallery .card-deck-wrapper {
+    width: 18.2rem !important; /* Scale width down to maintain portrait aspect ratio */
     height: 25rem !important; /* Scales down card deck height */
   }
 }
@@ -2963,6 +2964,7 @@ body.theme-blessings .nav-dot.active { background: #2D3748; }
     margin-top: 1.1rem !important;
   }
   #sec-gallery .card-deck-wrapper {
+    width: 16.8rem !important; /* Scale width down proportionally */
     height: 23rem !important; /* Scales card deck down further */
   }
 }
